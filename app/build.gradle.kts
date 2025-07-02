@@ -1,6 +1,6 @@
 plugins {
-    alias(libs.plugins.android.application)
-//    id("com.android.library")
+//    alias(libs.plugins.android.application)
+    id("com.android.library")
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 }
@@ -10,12 +10,12 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.rp.picture"
+//        applicationId = "com.rp.picture"
         minSdk = 24
         targetSdk = 35
 
-        versionCode = 1
-        versionName = "1.0.1"
+//        versionCode = 1
+//        versionName = "1.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
