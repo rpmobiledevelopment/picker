@@ -26,7 +26,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 public class PermissionConstant {
-
     private String TAG = PermissionConstant.class.getSimpleName();
 
     public PermissionConstant() {}
