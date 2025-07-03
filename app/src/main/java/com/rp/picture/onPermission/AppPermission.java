@@ -21,7 +21,7 @@ import androidx.fragment.app.FragmentManager;
 
 public class AppPermission {
 
-    private String TAG = PermissionConstant.class.getSimpleName();
+    private String TAG = OnPermission.class.getSimpleName();
 
     public AppPermission() { }
 

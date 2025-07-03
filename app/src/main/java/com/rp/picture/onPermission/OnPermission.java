@@ -25,13 +25,13 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-public class PermissionConstant {
-    private String TAG = PermissionConstant.class.getSimpleName();
+public class OnPermission {
+    private String TAG = OnPermission.class.getSimpleName();
 
-    public PermissionConstant() {}
+    public OnPermission() {}
 
-    public PermissionConstant(ActivityResultLauncher<String[]> multiplePermissionLauncher,
-                              String opt) {
+    public OnPermission(ActivityResultLauncher<String[]> multiplePermissionLauncher,
+                        String opt) {
         switch (opt) {
             case "NOTIFICATION":
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -65,8 +65,8 @@ public class PermissionConstant {
     }
 
 
-    public PermissionConstant(Activity mActivity, ActivityResultLauncher<String[]> multiplePermissionLauncher,
-                              String opt) {
+    public OnPermission(Activity mActivity, ActivityResultLauncher<String[]> multiplePermissionLauncher,
+                        String opt) {
         switch (opt) {
             case "DOWNLOAD_ACCESS":
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

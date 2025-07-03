@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Picture</string>
+
+    <string name="picture_gallery">Gallery</string>
+    <string name="picture_camera">Camera</string>
+    <string name="picture_document">Document</string>
+    <string name="picture_select_source">Select Source</string>
+    <string name="picture_cancel">Cancel</string>
+
 </resources>
