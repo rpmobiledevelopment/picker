@@ -6,21 +6,18 @@ plugins {
 
 android {
     namespace = "com.rp.picture"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
     compileOptions {
@@ -30,9 +27,6 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-//    buildFeatures {
-//        compose = true
-//    }
 }
 
 dependencies {

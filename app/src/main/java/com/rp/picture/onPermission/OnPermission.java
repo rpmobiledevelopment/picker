@@ -38,28 +38,18 @@ public class OnPermission {
                     multiplePermissionLauncher.launch(new String[]{POST_NOTIFICATIONS});
                 }
                 break;
+            case "CAMERA_ACCESS":
+                multiplePermissionLauncher.launch(new String[]{ CAMERA });
+                break;
             case "RECORD_AUDIO":
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    multiplePermissionLauncher.launch(new String[]{ RECORD_AUDIO });
-                } else {
-                    multiplePermissionLauncher.launch(new String[]{ RECORD_AUDIO,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE });
-                }
+                multiplePermissionLauncher.launch(new String[]{ RECORD_AUDIO });
                 break;
             case "LOCATION":
                 multiplePermissionLauncher.launch( new String[] { ACCESS_FINE_LOCATION,
                         ACCESS_COARSE_LOCATION } );
                 break;
             default:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    multiplePermissionLauncher.launch(new String[]{ READ_MEDIA_IMAGES,
-                            READ_MEDIA_AUDIO, READ_MEDIA_VIDEO, CAMERA });
-                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    multiplePermissionLauncher.launch(new String[]{ WRITE_EXTERNAL_STORAGE,
-                            READ_EXTERNAL_STORAGE, CAMERA });
-                } else {
-                    multiplePermissionLauncher.launch(new String[]{ WRITE_EXTERNAL_STORAGE,
-                            READ_EXTERNAL_STORAGE, CAMERA });
-                }
+                multiplePermissionLauncher.launch(new String[]{ CAMERA });
                 break;
         }
     }
@@ -69,15 +59,7 @@ public class OnPermission {
                         String opt) {
         switch (opt) {
             case "DOWNLOAD_ACCESS":
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    multiplePermissionLauncher.launch(new String[]{ CAMERA });
-                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    multiplePermissionLauncher.launch(new String[]{ WRITE_EXTERNAL_STORAGE,
-                            READ_EXTERNAL_STORAGE, CAMERA });
-                } else {
-                    multiplePermissionLauncher.launch(new String[]{ WRITE_EXTERNAL_STORAGE,
-                            READ_EXTERNAL_STORAGE, CAMERA });
-                }
+                multiplePermissionLauncher.launch(new String[]{ CAMERA });
                 break;
             case "NOTIFICATION":
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -88,22 +70,12 @@ public class OnPermission {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(mActivity,ACCESS_FINE_LOCATION)) {
                     buildAlertMessageNoGps(mActivity);
                 } else {
-                    multiplePermissionLauncher.launch(new String[]{ACCESS_FINE_LOCATION,
-                            ACCESS_BACKGROUND_LOCATION});
+                    multiplePermissionLauncher.launch(new String[]{ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION});
                 }
 
                 break;
             default:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    multiplePermissionLauncher.launch(new String[]{READ_MEDIA_IMAGES,
-                            READ_MEDIA_AUDIO, READ_MEDIA_VIDEO, CAMERA});
-                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    multiplePermissionLauncher.launch(new String[]{WRITE_EXTERNAL_STORAGE,
-                            READ_EXTERNAL_STORAGE, CAMERA});
-                } else {
-                    multiplePermissionLauncher.launch(new String[]{WRITE_EXTERNAL_STORAGE,
-                            READ_EXTERNAL_STORAGE, CAMERA});
-                }
+                multiplePermissionLauncher.launch(new String[]{ CAMERA });
                 break;
         }
     }
@@ -114,12 +86,6 @@ public class OnPermission {
         int currentAPIVersion = Build.VERSION.SDK_INT;
 
         switch (opt) {
-            case "DOWNLOAD_ACCESS":
-                return Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ?
-                        ((ContextCompat.checkSelfPermission(mActivity, CAMERA) == PackageManager.PERMISSION_GRANTED))
-                        : ((ContextCompat.checkSelfPermission(mActivity, WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) &&
-                        (ContextCompat.checkSelfPermission(mActivity, CAMERA) == PackageManager.PERMISSION_GRANTED) &&
-                        (ContextCompat.checkSelfPermission(mActivity, READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED));
             case "NOTIFICATION":
                 return Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
                         ((ContextCompat.checkSelfPermission(mActivity, POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED));
@@ -128,14 +94,7 @@ public class OnPermission {
                         ((ContextCompat.checkSelfPermission(mActivity, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) &&
                                 (ContextCompat.checkSelfPermission(mActivity, ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED));
             default:
-                return Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ?
-                        ((ContextCompat.checkSelfPermission(mActivity, READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED) &&
-                                        (ContextCompat.checkSelfPermission(mActivity, READ_MEDIA_AUDIO) == PackageManager.PERMISSION_GRANTED) &&
-                                        (ContextCompat.checkSelfPermission(mActivity, CAMERA) == PackageManager.PERMISSION_GRANTED) &&
-                                        (ContextCompat.checkSelfPermission(mActivity, READ_MEDIA_VIDEO) == PackageManager.PERMISSION_GRANTED))
-                        : ((ContextCompat.checkSelfPermission(mActivity, WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) &&
-                                        (ContextCompat.checkSelfPermission(mActivity, CAMERA) == PackageManager.PERMISSION_GRANTED) &&
-                                        (ContextCompat.checkSelfPermission(mActivity, READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED));
+                return (ContextCompat.checkSelfPermission(mActivity, CAMERA) == PackageManager.PERMISSION_GRANTED);
         }
     }
     public boolean isPermission(Context mActivity, String opt) {
@@ -144,37 +103,18 @@ public class OnPermission {
 
         switch (opt) {
             case "DOWNLOAD_ACCESS":
-                return Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ?
-                        ((ContextCompat.checkSelfPermission(mActivity, CAMERA) == PackageManager.PERMISSION_GRANTED))
-                        : ((ContextCompat.checkSelfPermission(mActivity, WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) &&
-                        (ContextCompat.checkSelfPermission(mActivity, CAMERA) == PackageManager.PERMISSION_GRANTED) &&
-                        (ContextCompat.checkSelfPermission(mActivity, READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED));
+                return (ContextCompat.checkSelfPermission(mActivity, CAMERA) == PackageManager.PERMISSION_GRANTED);
             case "NOTIFICATION":
                 return Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
                         ((ContextCompat.checkSelfPermission(mActivity, POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED));
             case "RECORD_AUDIO":
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
-                            ((ContextCompat.checkSelfPermission(mActivity, RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED));
-                }else {
-                    return ((ContextCompat.checkSelfPermission(mActivity, WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) &&
-                            (ContextCompat.checkSelfPermission(mActivity, RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) &&
-                            (ContextCompat.checkSelfPermission(mActivity, READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED));
-                }
-
+                return (ContextCompat.checkSelfPermission(mActivity, RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED);
             case "LOCATION":
                 return currentAPIVersion < Build.VERSION_CODES.M ||
                         ((ContextCompat.checkSelfPermission(mActivity, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) &&
                                 (ContextCompat.checkSelfPermission(mActivity, ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED));
             default:
-                return Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ?
-                        ((ContextCompat.checkSelfPermission(mActivity, READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED) &&
-                                        (ContextCompat.checkSelfPermission(mActivity, READ_MEDIA_AUDIO) == PackageManager.PERMISSION_GRANTED) &&
-                                        (ContextCompat.checkSelfPermission(mActivity, CAMERA) == PackageManager.PERMISSION_GRANTED) &&
-                                        (ContextCompat.checkSelfPermission(mActivity, READ_MEDIA_VIDEO) == PackageManager.PERMISSION_GRANTED))
-                        : ((ContextCompat.checkSelfPermission(mActivity, WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) &&
-                                        (ContextCompat.checkSelfPermission(mActivity, CAMERA) == PackageManager.PERMISSION_GRANTED) &&
-                                        (ContextCompat.checkSelfPermission(mActivity, READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED));
+                return (ContextCompat.checkSelfPermission(mActivity, CAMERA) == PackageManager.PERMISSION_GRANTED);
         }
     }
 

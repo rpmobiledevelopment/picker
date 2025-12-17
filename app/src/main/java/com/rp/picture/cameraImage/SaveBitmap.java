@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Environment;
 
+import com.rp.picture.R;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -64,9 +66,9 @@ public class SaveBitmap {
         File createFolder = new File(Environment.getExternalStorageDirectory(),"ScreenShotImg");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             createFolder = new File (Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+
-                    "/NPScreenShotImg" );
+                    "/"+ R.string.folder_name );
         } else {
-            createFolder = new File(Environment.getExternalStorageDirectory() + "/NPScreenShotImg");
+            createFolder = new File(Environment.getExternalStorageDirectory() + "/"+ R.string.folder_name);
         }
 
         if(!createFolder.exists())

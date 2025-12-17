@@ -54,15 +54,7 @@ public class PermissionsFragment extends Fragment {
         switch (opt) {
             case "DOWNLOAD_ACCESS_":
             case "DOWNLOAD_ACCESS":
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    multiplePermissionLauncher.launch(new String[]{ CAMERA });
-                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    multiplePermissionLauncher.launch(new String[]{ WRITE_EXTERNAL_STORAGE,
-                            READ_EXTERNAL_STORAGE, CAMERA });
-                } else {
-                    multiplePermissionLauncher.launch(new String[]{ WRITE_EXTERNAL_STORAGE,
-                            READ_EXTERNAL_STORAGE, CAMERA });
-                }
+                multiplePermissionLauncher.launch(new String[]{ CAMERA });
                 break;
             case "NOTIFICATION":
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -70,11 +62,7 @@ public class PermissionsFragment extends Fragment {
                 }
                 break;
             case "RECORD_AUDIO":
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    multiplePermissionLauncher.launch(new String[]{ RECORD_AUDIO });
-                } else {
-                    multiplePermissionLauncher.launch(new String[]{ RECORD_AUDIO,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE });
-                }
+                multiplePermissionLauncher.launch(new String[]{ RECORD_AUDIO });
                 break;
             case "LOCATION":
                 if (ActivityCompat.shouldShowRequestPermissionRationale(mActivity,ACCESS_FINE_LOCATION)) {
@@ -84,16 +72,7 @@ public class PermissionsFragment extends Fragment {
                 }
                 break;
             default:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    multiplePermissionLauncher.launch(new String[]{ READ_MEDIA_IMAGES,
-                            READ_MEDIA_AUDIO, READ_MEDIA_VIDEO, CAMERA });
-                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    multiplePermissionLauncher.launch(new String[]{ WRITE_EXTERNAL_STORAGE,
-                            READ_EXTERNAL_STORAGE, CAMERA });
-                } else {
-                    multiplePermissionLauncher.launch(new String[]{ WRITE_EXTERNAL_STORAGE,
-                            READ_EXTERNAL_STORAGE, CAMERA });
-                }
+                multiplePermissionLauncher.launch(new String[]{ CAMERA });
                 break;
         }
     }
@@ -102,15 +81,7 @@ public class PermissionsFragment extends Fragment {
         switch (opt) {
             case "DOWNLOAD_ACCESS_":
             case "DOWNLOAD_ACCESS":
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    multiplePermissionLauncher.launch(new String[]{ CAMERA });
-                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    multiplePermissionLauncher.launch(new String[]{ WRITE_EXTERNAL_STORAGE,
-                            READ_EXTERNAL_STORAGE, CAMERA });
-                } else {
-                    multiplePermissionLauncher.launch(new String[]{ WRITE_EXTERNAL_STORAGE,
-                            READ_EXTERNAL_STORAGE, CAMERA });
-                }
+                multiplePermissionLauncher.launch(new String[]{ CAMERA });
                 break;
             case "NOTIFICATION":
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -118,23 +89,10 @@ public class PermissionsFragment extends Fragment {
                 }
                 break;
             case "RECORD_AUDIO":
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    multiplePermissionLauncher.launch(new String[]{ RECORD_AUDIO });
-                } else {
-                    multiplePermissionLauncher.launch(new String[]{ RECORD_AUDIO,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE });
-                }
+                multiplePermissionLauncher.launch(new String[]{ RECORD_AUDIO });
                 break;
             default:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    multiplePermissionLauncher.launch(new String[]{ READ_MEDIA_IMAGES,
-                            READ_MEDIA_AUDIO, READ_MEDIA_VIDEO, CAMERA });
-                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    multiplePermissionLauncher.launch(new String[]{ WRITE_EXTERNAL_STORAGE,
-                            READ_EXTERNAL_STORAGE, CAMERA });
-                } else {
-                    multiplePermissionLauncher.launch(new String[]{ WRITE_EXTERNAL_STORAGE,
-                            READ_EXTERNAL_STORAGE, CAMERA });
-                }
+                multiplePermissionLauncher.launch(new String[]{ CAMERA });
                 break;
         }
     }

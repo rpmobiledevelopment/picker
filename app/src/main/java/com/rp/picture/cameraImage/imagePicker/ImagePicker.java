@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Parcelable;
+import android.os.ext.SdkExtensions;
 import android.provider.MediaStore;
 
 import androidx.core.content.FileProvider;
@@ -33,8 +35,9 @@ public class ImagePicker {
     private Activity activity;
     private Fragment fragment;
     private boolean isCompress = true, isCamera = true, isGallery = true,isCameraYesNo = true,
-            fontCameraOPT = false;
+            fontCameraOPT = false,isMultiple = false;
     public static final int SELECT_IMAGE = 121;
+    public int selectedImage = 5;
     private ImageCompressionListener imageCompressionListener;
 
     public ImagePicker withActivity(Activity activity) {
@@ -61,6 +64,12 @@ public class ImagePicker {
 
     public ImagePicker withCompression(boolean isCompress) {
         this.isCompress = isCompress;
+        return this;
+    }
+
+    public ImagePicker isMultiple(boolean isMultiple,int selectPos) {
+        this.isMultiple = isMultiple;
+        this.selectedImage = selectPos;
         return this;
     }
 
@@ -96,20 +105,24 @@ public class ImagePicker {
 
         if (!isCameraYesNo) {
             if (isGallery) {
-                // collect all gallery intents
-                Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
-                galleryIntent.setType("image/*");
-                Intent intentPicker = new Intent(
-                        Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                Intent intent = null;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R &&
+                        SdkExtensions.getExtensionVersion(Build.VERSION_CODES.R) >= 2) {
 
-                List<ResolveInfo> listGallery = packageManager.queryIntentActivities(intentPicker, 0);
-                for (ResolveInfo res : listGallery) {
-                    Intent intent = new Intent(intentPicker);
-//                    intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-                    intent.setComponent(new ComponentName(res.activityInfo.packageName, res.activityInfo.name));
-                    intent.setPackage(res.activityInfo.packageName);
-                    allIntents.add(intent);
+                    intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
+                    if (isMultiple) {
+                        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                        intent.putExtra(MediaStore.EXTRA_PICK_IMAGES_MAX, selectedImage); // Limit selection to 10
+                    }
+                } else {
+                    intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                    intent.addCategory(Intent.CATEGORY_OPENABLE);
+
                 }
+                intent.setType("image/*");
+                allIntents.add(intent);
+
+
             }
         }
 
