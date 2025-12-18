@@ -14,8 +14,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ImageCompression extends AsyncTask<Void, Void, String> {
+public class ImageCompression extends AsyncTask<List<String>, Void, List<String>> {
 
     private final String filePath;
     private final ImageCompressionListener imageCompressionListener;
@@ -37,15 +39,47 @@ public class ImageCompression extends AsyncTask<Void, Void, String> {
         super.onPreExecute();
     }
 
+//    @Override
+//    protected String doInBackground(Void... strings) {
+//        return compressImage(filePath);
+//    }
+//
+//    protected void onPostExecute(String imagePath) {
+//        // imagePath is path of new compressed image.
+//        imageCompressionListener.onCompressed(imagePath);
+//    }
+
     @Override
-    protected String doInBackground(Void... strings) {
-        return compressImage(filePath);
+    protected List<String> doInBackground(List<String>... params) {
+        List<String> compressedPaths = new ArrayList<>();
+        List<String> filePaths = params[0];
+
+        for (String filePath : filePaths) {
+            compressedPaths.add(compressImage(filePath));
+        }
+
+        return compressedPaths;
     }
 
-    protected void onPostExecute(String imagePath) {
-        // imagePath is path of new compressed image.
-        imageCompressionListener.onCompressed(imagePath);
+    @Override
+    protected void onPostExecute(List<String> compressedPaths) {
+        if (imageCompressionListener == null) return;
+
+        // ✔ Single image
+        if (compressedPaths.size() == 1) {
+            imageCompressionListener.onCompressed(compressedPaths.get(0));
+        }
+        // ✔ Multiple images
+        else {
+            imageCompressionListener.onCompressed(compressedPaths);
+        }
     }
+
+
+//    @Override
+//    protected void onPostExecute(List<String> compressedPaths) {
+//        imageCompressionListener.onCompressed(compressedPaths);
+//    }
 
 
     private String compressImage(String imagePath) {

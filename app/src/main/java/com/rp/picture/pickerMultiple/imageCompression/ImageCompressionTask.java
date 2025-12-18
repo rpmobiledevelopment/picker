@@ -23,9 +23,9 @@ public class ImageCompressionTask extends AsyncTask<List<String>, Void, List<Str
     private static final float maxHeight = 700.0f;
     private static final float maxWidth = 700.0f;
 
-    public ImageCompressionTask(Context context, ImageCompressionListenerArray listener) {
+    public ImageCompressionTask(Context context, ImageCompressionListener listener) {
         this.context = context;
-        this.imageCompressionListener = listener;
+        this.imageCompressionListener = (ImageCompressionListenerArray) listener;
     }
 
     @Override
@@ -48,7 +48,16 @@ public class ImageCompressionTask extends AsyncTask<List<String>, Void, List<Str
 
     @Override
     protected void onPostExecute(List<String> compressedPaths) {
-        imageCompressionListener.onCompressed(compressedPaths);
+        if (imageCompressionListener == null) return;
+
+        // ✔ Single image
+        if (compressedPaths.size() == 1) {
+            imageCompressionListener.onCompressed(compressedPaths.get(0));
+        }
+        // ✔ Multiple images
+        else {
+            imageCompressionListener.onCompressed(compressedPaths);
+        }
     }
 
     private String compressImage(String imagePath) {

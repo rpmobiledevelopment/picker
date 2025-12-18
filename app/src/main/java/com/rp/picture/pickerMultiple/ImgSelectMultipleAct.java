@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.rp.picture.R;
 import com.rp.picture.onPermission.OnPermission;
+import com.rp.picture.pickerMultiple.imageCompression.ImageCompressionListener;
 import com.rp.picture.pickerMultiple.imageCompression.ImageCompressionListenerArray;
 import com.rp.picture.pickerMultiple.imageCompression.ImageCompressionTask;
 import com.rp.picture.pickerMultiple.imagePicker.ImagePicker;
@@ -117,16 +118,20 @@ public class ImgSelectMultipleAct extends AppCompatActivity {
                 }
             }
             if (!filePaths.isEmpty()) {
-                new ImageCompressionTask(this, new ImageCompressionListenerArray() {
+                new ImageCompressionTask(this, new ImageCompressionListener() {
                     @Override
                     public void onStart() {
                         Log.e(TAG, "Compression started...");
                     }
 
                     @Override
+                    public void onCompressed(String filePath) {
+
+                    }
+
+                    @Override
                     public void onCompressed(List<String> compressedPaths) {
                         Log.e(TAG, "Compression finished: " + compressedPaths.toString());
-
                         Intent intent = new Intent();
                         intent.putStringArrayListExtra(RESULT_FILE_PATH, new ArrayList<>(compressedPaths));
                         setResult(RESULT_OK, intent);
