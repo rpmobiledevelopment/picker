@@ -19,7 +19,6 @@ import java.util.List;
 
 public class ImageCompression extends AsyncTask<List<String>, Void, List<String>> {
 
-    private final String filePath;
     private final ImageCompressionListener imageCompressionListener;
 
     @SuppressLint("StaticFieldLeak")
@@ -30,7 +29,6 @@ public class ImageCompression extends AsyncTask<List<String>, Void, List<String>
 
     public ImageCompression(Context context, String filePath, ImageCompressionListener imageCompressionListener) {
         this.context = context;
-        this.filePath = filePath;
         this.imageCompressionListener = imageCompressionListener;
     }
 
@@ -43,16 +41,6 @@ public class ImageCompression extends AsyncTask<List<String>, Void, List<String>
     protected void onPreExecute() {
         super.onPreExecute();
     }
-
-//    @Override
-//    protected String doInBackground(Void... strings) {
-//        return compressImage(filePath);
-//    }
-//
-//    protected void onPostExecute(String imagePath) {
-//        // imagePath is path of new compressed image.
-//        imageCompressionListener.onCompressed(imagePath);
-//    }
 
     @Override
     protected List<String> doInBackground(List<String>... params) {
@@ -79,13 +67,6 @@ public class ImageCompression extends AsyncTask<List<String>, Void, List<String>
             imageCompressionListener.onCompressed(compressedPaths);
         }
     }
-
-
-//    @Override
-//    protected void onPostExecute(List<String> compressedPaths) {
-//        imageCompressionListener.onCompressed(compressedPaths);
-//    }
-
 
     private String compressImage(String imagePath) {
         Bitmap scaledBitmap = null;

@@ -11,14 +11,14 @@
         <activity
             android:name="cameraImage.ImgSelectAct"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
-        <activity
-            android:name="pickerMultiple.ImgSelectMultipleAct"
-            android:theme="@style/Theme.AppCompat.Light.Dialog" />
-        <activity android:name="multipleImgPick.ui.PickerActivity" />
+<!--        <activity-->
+<!--            android:name="pickerMultiple.ImgSelectMultipleAct"-->
+<!--            android:theme="@style/Theme.AppCompat.Light.Dialog" />-->
+<!--        <activity android:name="multipleImgPick.ui.PickerActivity" />-->
 
-        <service
-            android:name="multipleImgPick.util.OfflineSpiceService"
-            android:exported="false" />
+<!--        <service-->
+<!--            android:name="multipleImgPick.util.OfflineSpiceService"-->
+<!--            android:exported="false" />-->
     </application>
     <queries>
         <intent>
