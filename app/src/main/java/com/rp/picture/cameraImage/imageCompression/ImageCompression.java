@@ -34,6 +34,11 @@ public class ImageCompression extends AsyncTask<List<String>, Void, List<String>
         this.imageCompressionListener = imageCompressionListener;
     }
 
+    public ImageCompression(Context context, ImageCompressionListener imageCompressionListener) {
+        this.context = context;
+        this.imageCompressionListener = imageCompressionListener;
+    }
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
