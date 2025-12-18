@@ -37,7 +37,6 @@ import com.rp.uihelpher.log.IsLog;
 import java.io.File;
 import java.io.Serializable;
 
-
 public class OnPicker extends Fragment {
 
     private String TAG = OnPicker.class.getSimpleName();

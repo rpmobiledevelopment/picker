@@ -20,8 +20,6 @@ import com.rp.picture.cameraImage.imageCompression.ImageCompression;
 import com.rp.picture.cameraImage.imageCompression.ImageCompressionListener;
 import com.rp.picture.cameraImage.imagePicker.ImagePicker;
 import com.rp.picture.onPermission.OnPermission;
-import com.rp.picture.pickerMultiple.imageCompression.ImageCompressionListenerArray;
-import com.rp.picture.pickerMultiple.imageCompression.ImageCompressionTask;
 import com.rp.uihelpher.helpher.OnSnackBar;
 import com.rp.uihelpher.log.IsLog;
 
