@@ -143,7 +143,9 @@ public class ImagePicker {
                 for (ResolveInfo res : listCam) {
                     Intent intent = new Intent(captureIntent);
                     intent.setComponent(new ComponentName(res.activityInfo.packageName, res.activityInfo.name));
-                    intent.setPackage(res.activityInfo.packageName);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT) {
+                        intent.setPackage(res.activityInfo.packageName);
+                    }
                     if (outputFileUri != null) {
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
                     }
@@ -170,8 +172,11 @@ public class ImagePicker {
 
     private Uri getCaptureImageOutputUri() {
         Uri outputFileUri = null;
-        File getImage = activity != null ? activity.getExternalFilesDir("") :
-                fragment.getActivity().getExternalFilesDir("");
+        File getImage = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
+            getImage = activity != null ? activity.getExternalFilesDir("") :
+                    fragment.getActivity().getExternalFilesDir("");
+        }
         if (getImage != null) {
             outputFileUri = FileProvider.getUriForFile(activity != null ? activity : fragment.getActivity(),
                     activity != null ? activity.getApplicationContext().getPackageName() + ".app_file_provider" :

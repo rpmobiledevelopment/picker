@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Picture</string>
+
     <string name="folder_name">appname</string>
     <string name="picture_gallery">Gallery</string>
     <string name="picture_camera">Camera</string>
