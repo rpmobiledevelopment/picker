@@ -13,7 +13,7 @@ import com.rp.picture.R
 import com.rp.picture.cameraImage.imageCompression.ImageCompressionListener
 import com.rp.picture.cameraImage.imagePicker.ImagePicker
 import com.rp.picture.onPermission.OnPermission
-import com.rp.uihelpher.helpher.OnSnackBar
+import com.ui.helper.constant.OnSnackBar
 
 class ImgSelectAct : AppCompatActivity() {
 
@@ -65,7 +65,7 @@ class ImgSelectAct : AppCompatActivity() {
                 ) {
                     onAccessFile()
                 } else {
-                    OnSnackBar(this, pb_load, "Permission declined")
+                    OnSnackBar(pb_load, "Permission declined")
                 }
             }
 

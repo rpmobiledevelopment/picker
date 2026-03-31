@@ -5,7 +5,6 @@ import android.content.ComponentName
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
-import android.os.Parcelable
 import android.os.ext.SdkExtensions
 import android.provider.MediaStore
 import androidx.core.content.FileProvider
@@ -13,13 +12,8 @@ import androidx.fragment.app.Fragment
 import com.rp.picture.cameraImage.imageCompression.ImageCompression
 import com.rp.picture.cameraImage.imageCompression.ImageCompressionListener
 import com.rp.picture.onPermission.OnPermission
-import com.rp.uihelpher.log.IsLog
-import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
-import java.io.IOException
-import java.io.InputStream
-import java.io.OutputStream
 
 class ImagePicker {
 
@@ -34,7 +28,7 @@ class ImagePicker {
     private var isCameraYesNo = true
     private var fontCameraOPT = false
 
-    private var imageCompressionListener: ImageCompressionListener? = null
+    private lateinit var imageCompressionListener: ImageCompressionListener
 
     companion object {
         const val SELECT_IMAGE = 121
@@ -258,11 +252,13 @@ class ImagePicker {
 
             path?.let {
 
-                ImageCompression(
-                    activity ?: fragment?.activity,
-                    it,
-                    imageCompressionListener
-                ).execute()
+                (activity ?: fragment?.activity)?.let { it1 ->
+                    ImageCompression(
+                        it1,
+                        it,
+                        imageCompressionListener
+                    )
+                }?.compress()
             }
 
             null
@@ -275,10 +271,10 @@ class ImagePicker {
 
     private fun getFilename(): String {
 
-        val context = activity ?: fragment?.context!!
+        val context = activity ?: fragment?.context
 
         val mediaStorageDir =
-            File(context.getExternalFilesDir(""), "uncompressed")
+            File(context?.getExternalFilesDir(""), "uncompressed")
 
         if (!mediaStorageDir.exists()) {
             mediaStorageDir.mkdirs()

@@ -128,7 +128,7 @@ class OnPermission : OnGlobalPermission {
                 }
             }
         }
-
+        return false
     }
 
     private fun buildAlertMessageNoGps(mActivity: Activity?) {

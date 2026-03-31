@@ -2,13 +2,10 @@ package com.rp.picture.cameraImage
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.Point
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
-import android.os.Build
-import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -20,18 +17,13 @@ import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
 import android.widget.TextView
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultCallback
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.rp.picture.R
-import com.rp.picture.cameraImage.SaveBitmap.save
 import com.rp.picture.onPermission.OnGlobalPermission
 import com.rp.picture.onPermission.OnGlobalPermission.Companion.onDialogShow
-import com.rp.uihelpher.log.IsLog
+import com.ui.helper.log.IsLog
 import java.io.File
 import java.io.Serializable
 

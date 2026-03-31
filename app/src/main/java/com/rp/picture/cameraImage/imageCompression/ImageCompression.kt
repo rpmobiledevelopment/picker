@@ -16,11 +16,9 @@ import java.io.FileOutputStream
 import java.io.IOException
 import androidx.core.graphics.createBitmap
 
-class ImageCompression(
-    private val context: Context,
+class ImageCompression(private val context: Context,
     private val filePath: String,
-    private val listener: ImageCompressionListener
-) {
+    private val listener: ImageCompressionListener) {
 
     companion object {
         private const val maxHeight = 700f
@@ -125,15 +123,8 @@ class ImageCompression(
                 8 -> matrixExif.postRotate(270f)
             }
 
-            scaledBitmap = Bitmap.createBitmap(
-                scaledBitmap,
-                0,
-                0,
-                scaledBitmap.width,
-                scaledBitmap.height,
-                matrixExif,
-                true
-            )
+            scaledBitmap = Bitmap.createBitmap(scaledBitmap, 0, 0,
+                scaledBitmap.width, scaledBitmap.height, matrixExif, true)
 
         } catch (e: IOException) {
         }
