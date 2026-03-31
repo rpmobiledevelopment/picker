@@ -1,6 +1,7 @@
 [versions]
 agp = "8.13.2"
 appcompat = "1.4.0"
+exifinterface = "1.4.2"
 kotlin = "2.3.0"
 coreKtx = "1.16.0"
 junit = "4.13.2"
@@ -10,11 +11,12 @@ lifecycleRuntimeKtx = "2.9.1"
 activityCompose = "1.10.1"
 composeBom = "2024.09.00"
 material = "1.12.0"
-uihelper = "v1.0.7"
+uihelper = "v2.1.2"
 
 [libraries]
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-exifinterface = { module = "androidx.exifinterface:exifinterface", version.ref = "exifinterface" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

@@ -8,7 +8,8 @@
     <application
         android:allowBackup="false">
         <activity
-            android:name="cameraImage.ImgSelectAct"
+            android:exported="false"
+            android:name="com.rp.picture.cameraImage.ImgSelectAct"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
     </application>
     <queries>

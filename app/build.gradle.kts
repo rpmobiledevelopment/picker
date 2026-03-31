@@ -41,4 +41,5 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.uihelper)
+    implementation(libs.androidx.exifinterface)
 }
