@@ -36,7 +36,7 @@
                     android:layout_weight="0.2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
-                <com.rp.uihelpher.ripple.MaterialRippleLayout
+                <com.ui.helper.ripple.MaterialRippleLayout
                     app:mrl_rippleDuration="80"
                     android:layout_weight="1"
                     android:layout_width="0dp"
@@ -64,36 +64,41 @@
                             android:textColor="@color/picture_text_color"
                             android:textSize="14sp" />
                     </LinearLayout>
-                </com.rp.uihelpher.ripple.MaterialRippleLayout>
+                </com.ui.helper.ripple.MaterialRippleLayout>
                 <View
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:background="@color/picture_gray_color"
                     android:layout_width="0.1dp"
                     android:layout_height="match_parent"/>
-                <LinearLayout
+                <com.ui.helper.ripple.MaterialRippleLayout
+                    app:mrl_rippleDuration="80"
                     android:layout_weight="1"
-                    android:id="@+id/ll_gallery"
-                    android:orientation="vertical"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent">
-                    <ImageView
-                        android:layout_margin="5dp"
-                        android:padding="8dp"
-                        android:src="@drawable/ic_gallery"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:id="@+id/ll_gallery"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:id="@+id/tv_gallery"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:padding="4dp"
-                        android:text="@string/picture_gallery"
-                        android:textColor="@color/picture_text_color"
-                        android:textSize="14sp" />
-                </LinearLayout>
+                        android:layout_height="match_parent">
+                        <ImageView
+                            android:layout_margin="5dp"
+                            android:padding="8dp"
+                            android:src="@drawable/ic_gallery"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:id="@+id/tv_gallery"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:padding="4dp"
+                            android:text="@string/picture_gallery"
+                            android:textColor="@color/picture_text_color"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </com.ui.helper.ripple.MaterialRippleLayout>
                 <LinearLayout
                     android:layout_weight="0.2"
                     android:layout_width="0dp"
