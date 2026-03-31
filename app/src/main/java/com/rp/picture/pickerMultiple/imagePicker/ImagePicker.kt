@@ -238,7 +238,6 @@ class ImagePicker {
         val path = getPickImageResultFilePath(data)
 
         if (path != null) {
-
             ImageCompression(
                 activity ?: fragment?.activity,
                 path,

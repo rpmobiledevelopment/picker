@@ -6,21 +6,14 @@ import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Matrix
 import android.graphics.Paint
-import android.media.ExifInterface
-import android.os.AsyncTask
 import android.os.Handler
 import android.os.Looper
 import androidx.core.graphics.createBitmap
 import java.io.File
-import java.io.FileNotFoundException
 import java.io.FileOutputStream
-import java.io.IOException
-import kotlin.math.min
 
-class ImageCompressionTask(
-    private val context: Context,
-    private val listener: ImageCompressionListenerArray
-) {
+class ImageCompressionTask(private val context: Context,
+    private val listener: ImageCompressionListenerArray) {
 
     companion object {
         private const val maxHeight = 700f

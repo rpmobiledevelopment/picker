@@ -209,7 +209,7 @@ class ImageCompression(
     private fun getFilename(): String {
 
         val mediaStorageDir =
-            File(context.getExternalFilesDir(null), "compressed")
+            File(context?.getExternalFilesDir(null), "compressed")
 
         if (!mediaStorageDir.exists()) {
             mediaStorageDir.mkdirs()
