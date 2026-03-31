@@ -78,8 +78,7 @@ class OnPermission : OnGlobalPermission {
 
             when (opt) {
                 "CAMERA_ACCESS" -> return if (onCameraPermission == true) {
-                    (ContextCompat.checkSelfPermission(it!!, permission.CAMERA)
-                            == PackageManager.PERMISSION_GRANTED)
+                    (ContextCompat.checkSelfPermission(it!!, permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
                 } else {
                     true
                 }

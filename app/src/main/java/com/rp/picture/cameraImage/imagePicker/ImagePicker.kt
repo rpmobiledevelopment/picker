@@ -190,16 +190,22 @@ class ImagePicker {
 
     private fun getCaptureImageOutputUri(): Uri? {
 
-        val context = activity ?: fragment?.activity ?: return null
+        val context = activity ?: fragment?.activity
 
-        val getImage = context.getExternalFilesDir("")
+        val getImage = context?.getExternalFilesDir("")
 
         return getImage?.let {
 
+            val file = File(it, "IMG_${System.currentTimeMillis()}.jpg")
+
+            if (!file.exists()) {
+                file.createNewFile()
+            }
+
             FileProvider.getUriForFile(
                 context,
-                "${context.packageName}.app_file_provider",
-                File(it.path, "profile.png")
+                context.packageName + ".provider",
+                file
             )
         }
     }

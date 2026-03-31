@@ -60,9 +60,7 @@ class ImgSelectAct : AppCompatActivity() {
         multiplePermissionLauncher =
             registerForActivityResult(multiplePermissionsContract) { isGranted ->
 
-                if (isGranted.containsValue(true) &&
-                    OnPermission().checkBool(this, "CAMERA_ACCESS")
-                ) {
+                if (isGranted.containsValue(true) && OnPermission().checkBool(this, "CAMERA_ACCESS")) {
                     onAccessFile()
                 } else {
                     OnSnackBar(pb_load, "Permission declined")

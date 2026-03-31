@@ -168,10 +168,16 @@ class ImagePicker {
 
         return getImage?.let {
 
+            val file = File(it, "IMG_${System.currentTimeMillis()}.jpg")
+
+            if (!file.exists()) {
+                file.createNewFile()
+            }
+
             FileProvider.getUriForFile(
                 context,
-                context.packageName + ".app_file_provider",
-                File(it.path, "profile.png")
+                context.packageName + ".provider",
+                file
             )
         }
     }
