@@ -15,10 +15,13 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import androidx.core.graphics.createBitmap
+import kotlin.math.roundToInt
 
-class ImageCompression(private val context: Context,
+class ImageCompression(
+    private val context: Context,
     private val filePath: String,
-    private val listener: ImageCompressionListener) {
+    private val listener: ImageCompressionListener
+) {
 
     companion object {
         private const val maxHeight = 700f
@@ -49,22 +52,30 @@ class ImageCompression(private val context: Context,
         var actualHeight = options.outHeight
         var actualWidth = options.outWidth
 
+        // FIX 1 — Avoid crash if invalid image
+        if (actualHeight <= 0 || actualWidth <= 0) {
+            return imagePath
+        }
+
         var imgRatio = actualWidth.toFloat() / actualHeight.toFloat()
         val maxRatio = maxWidth / maxHeight
 
         if (actualHeight > maxHeight || actualWidth > maxWidth) {
 
             if (imgRatio < maxRatio) {
+
                 imgRatio = maxHeight / actualHeight
                 actualWidth = (imgRatio * actualWidth).toInt()
                 actualHeight = maxHeight.toInt()
 
             } else if (imgRatio > maxRatio) {
+
                 imgRatio = maxWidth / actualWidth
                 actualHeight = (imgRatio * actualHeight).toInt()
                 actualWidth = maxWidth.toInt()
 
             } else {
+
                 actualHeight = maxHeight.toInt()
                 actualWidth = maxWidth.toInt()
             }
@@ -80,6 +91,17 @@ class ImageCompression(private val context: Context,
         try {
             bmp = BitmapFactory.decodeFile(imagePath, options)
         } catch (e: OutOfMemoryError) {
+            e.printStackTrace()
+        }
+
+        // FIX 2 — Null check
+        if (bmp == null) {
+            return imagePath
+        }
+
+        // FIX 3 — width height check
+        if (actualWidth <= 0 || actualHeight <= 0) {
+            return imagePath
         }
 
         scaledBitmap = createBitmap(actualWidth, actualHeight, Bitmap.Config.RGB_565)
@@ -96,20 +118,20 @@ class ImageCompression(private val context: Context,
         val canvas = Canvas(scaledBitmap)
         canvas.setMatrix(matrix)
 
-        bmp?.let {
-            canvas.drawBitmap(
-                it,
-                middleX - it.width / 2,
-                middleY - it.height / 2,
-                Paint(Paint.FILTER_BITMAP_FLAG)
-            )
+        canvas.drawBitmap(
+            bmp,
+            middleX - bmp.width / 2,
+            middleY - bmp.height / 2,
+            Paint(Paint.FILTER_BITMAP_FLAG)
+        )
 
-            it.recycle()
-        }
+        bmp.recycle()
 
+        // Rotate using EXIF
         try {
 
             val exif = ExifInterface(imagePath)
+
             val orientation = exif.getAttributeInt(
                 ExifInterface.TAG_ORIENTATION,
                 0
@@ -123,20 +145,37 @@ class ImageCompression(private val context: Context,
                 8 -> matrixExif.postRotate(270f)
             }
 
-            scaledBitmap = Bitmap.createBitmap(scaledBitmap, 0, 0,
-                scaledBitmap.width, scaledBitmap.height, matrixExif, true)
+            scaledBitmap = Bitmap.createBitmap(
+                scaledBitmap,
+                0,
+                0,
+                scaledBitmap.width,
+                scaledBitmap.height,
+                matrixExif,
+                true
+            )
 
         } catch (e: IOException) {
+            e.printStackTrace()
         }
 
         val filepath = getFilename()
 
         try {
+
             val out = FileOutputStream(filepath)
-            scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 80, out)
+
+            scaledBitmap.compress(
+                Bitmap.CompressFormat.JPEG,
+                80,
+                out
+            )
+
+            out.flush()
             out.close()
 
         } catch (e: Exception) {
+            e.printStackTrace()
         }
 
         return filepath
@@ -155,10 +194,10 @@ class ImageCompression(private val context: Context,
         if (height > reqHeight || width > reqWidth) {
 
             val heightRatio =
-                Math.round(height.toFloat() / reqHeight.toFloat())
+                (height.toFloat() / reqHeight.toFloat()).roundToInt()
 
             val widthRatio =
-                Math.round(width.toFloat() / reqWidth.toFloat())
+                (width.toFloat() / reqWidth.toFloat()).roundToInt()
 
             inSampleSize = minOf(heightRatio, widthRatio)
         }
