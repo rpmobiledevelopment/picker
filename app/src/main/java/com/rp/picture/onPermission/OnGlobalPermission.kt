@@ -5,6 +5,7 @@ interface OnGlobalPermission {
         var onCameraPermission : Boolean? = true
         var onDialogShow : Boolean? = true
         var saveFolderName : String? = "saveImages"
+        var appProvider : String? = "provider"
 
 
         const val TAG_SELECT_SOURCE_ARA: String = "اختر مصدر"

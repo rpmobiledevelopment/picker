@@ -5,9 +5,9 @@
     <application
         android:allowBackup="false">
         <activity
-            android:exported="false"
-            android:name="com.rp.picture.cameraImage.ImgSelectAct"
-            android:theme="@style/Theme.AppCompat.Light.Dialog" />
+            android:theme="@style/TransparentActivity"
+            android:name=".selectSource.SelectImageSourceAct"
+            android:exported="false"/>
     </application>
     <queries>
         <intent>

@@ -1,4 +1,4 @@
-package com.rp.picture.pickerMultiple.imageCompression
+package com.rp.picture.selectSource.imageCompression
 
 interface ImageCompressionListenerArray {
     fun onStart()

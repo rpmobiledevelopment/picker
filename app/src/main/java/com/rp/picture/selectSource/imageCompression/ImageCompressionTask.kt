@@ -1,4 +1,4 @@
-package com.rp.picture.pickerMultiple.imageCompression
+package com.rp.picture.selectSource.imageCompression
 
 import android.content.Context
 import android.graphics.Bitmap
