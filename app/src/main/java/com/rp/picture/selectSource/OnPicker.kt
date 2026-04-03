@@ -2,32 +2,20 @@ package com.rp.picture.selectSource
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.Point
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.os.Parcel
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import android.view.WindowManager
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
-import androidx.fragment.app.Fragment
 import bottomDlg.BtmSheetDlg
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.rp.picture.R
 import com.rp.picture.onPermission.OnGlobalPermission
 import com.rp.picture.onPermission.OnGlobalPermission.Companion.onDialogShow
-import com.ui.helper.log.IsLog
-import java.io.Serializable
 
-class OnPicker() : BtmSheetDlg() {
+class OnPicker() : BtmDlg() {
 
     private val TAG = OnPicker::class.java.simpleName
 
