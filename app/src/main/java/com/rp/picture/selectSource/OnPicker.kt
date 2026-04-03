@@ -31,7 +31,7 @@ class OnPicker() : BtmSheetDlg() {
 
     private val TAG = OnPicker::class.java.simpleName
 
-    private var onPickerListener: OnPickerListener? = null
+    private var someActivityResultLauncher: ActivityResultLauncher<Intent?>? = null
     private var mActivity: Activity? = null
     private var selectLang: String? = null
 
@@ -39,18 +39,14 @@ class OnPicker() : BtmSheetDlg() {
     private lateinit var tv_camera: TextView
     private lateinit var tv_gallery: TextView
     private lateinit var tv_cancel: TextView
-    private lateinit var someActivityResultLauncher: ActivityResultLauncher<Intent?>
 
-    constructor(mActivity: Activity?, selectLang: String, someActivityResultLauncher: ActivityResultLauncher<Intent?>,
-                listener: OnPickerListener) : this() {
+    constructor(mActivity: Activity?, selectLang: String,someActivityResultLauncher: ActivityResultLauncher<Intent?>) : this() {
 
         this.mActivity = mActivity
         this.selectLang = selectLang
-        this.onPickerListener = listener
         this.someActivityResultLauncher = someActivityResultLauncher
 
         if (onDialogShow == true) {
-            onDlg()
         } else {
 
             Handler(Looper.getMainLooper()).postDelayed({
@@ -71,29 +67,16 @@ class OnPicker() : BtmSheetDlg() {
         super.onCreate(savedInstanceState)
 
         mActivity = activity
-
-        arguments?.let {
-            selectLang = it.getString("selectLang")
-            onPickerListener = it.getSerializable("listener") as? OnPickerListener
-        }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        mActivity = activity
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-    override fun onStart() {
-        super.onStart()
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
-    }
-    private fun onDlg() {
-
-        mActivity?.let { mActivity ->
-            val dialog = BottomSheetDialog(mActivity)
-            val inflater = mActivity.layoutInflater
-
-            val convertView = inflater.inflate(R.layout.dlg_pic_opt, null)
+        if (onDialogShow == true) {
+            val convertView = inflater.inflate(R.layout.dlg_pic_opt, container, false)
 
             tv_header = convertView.findViewById(R.id.tv_header)
             tv_camera = convertView.findViewById(R.id.tv_camera)
@@ -112,74 +95,39 @@ class OnPicker() : BtmSheetDlg() {
                 tv_cancel.text = OnGlobalPermission.TAG_CANCEL_ENG
             }
 
-            convertView.findViewById<View>(R.id.cv_bg)
-                .background = resources.getDrawable(R.drawable.bg_cv_dlg)
+            tv_cancel.setOnClickListener { dismiss() }
 
-            convertView.findViewById<View>(R.id.tv_cancel)
-                .setOnClickListener { dialog.dismiss() }
+            convertView.findViewById<View>(R.id.ll_gallery).setOnClickListener {
 
-            convertView.findViewById<View>(R.id.ll_gallery)
-                .setOnClickListener {
+                val intent = Intent(requireActivity(), SelectImageSourceAct::class.java)
+                intent.putExtra(SelectImageSourceAct.FLAG_COMPRESS, true)
+                intent.putExtra(SelectImageSourceAct.FLAG_CAMERA, false)
+                intent.putExtra(SelectImageSourceAct.FLAG_GALLERY, true)
+                intent.putExtra(SelectImageSourceAct.FLAG_GALLERY_LIMITED, 5)
 
-                    val intent = Intent(mActivity, SelectImageSourceAct::class.java)
-                    intent.putExtra(SelectImageSourceAct.FLAG_COMPRESS, true)
-                    intent.putExtra(SelectImageSourceAct.FLAG_CAMERA, false)
-                    intent.putExtra(SelectImageSourceAct.FLAG_GALLERY, true)
-                    intent.putExtra(SelectImageSourceAct.FLAG_GALLERY_LIMITED, 5)
+                someActivityResultLauncher?.launch(intent)
+                dismiss()
+            }
 
-                    someActivityResultLauncher.launch(intent)
-                    dialog.dismiss()
-                }
+            convertView.findViewById<View>(R.id.ll_camera).setOnClickListener {
 
-            convertView.findViewById<View>(R.id.ll_camera)
-                .setOnClickListener {
+                val intent = Intent(requireActivity(), SelectImageSourceAct::class.java)
+                intent.putExtra(SelectImageSourceAct.FLAG_COMPRESS, true)
+                intent.putExtra(SelectImageSourceAct.FLAG_CAMERA, true)
+                intent.putExtra(SelectImageSourceAct.FLAG_GALLERY, false)
 
-                    val intent = Intent(mActivity, SelectImageSourceAct::class.java)
-                    intent.putExtra(SelectImageSourceAct.FLAG_COMPRESS, true)
-                    intent.putExtra(SelectImageSourceAct.FLAG_CAMERA, true)
-                    intent.putExtra(SelectImageSourceAct.FLAG_GALLERY, false)
-
-                    someActivityResultLauncher.launch(intent)
-                    dialog.dismiss()
-                }
-
-            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-            val lp = WindowManager.LayoutParams()
-            val window = dialog.window
-            lp.copyFrom(window?.attributes)
-            val display = mActivity.windowManager.defaultDisplay
-            val size = Point()
-            display.getSize(size)
-            lp.width = size.x
-            lp.height = size.y
-            window?.attributes = lp
-            dialog.setCancelable(true)
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-            dialog.setContentView(convertView)
-            dialog.show()
+                someActivityResultLauncher?.launch(intent)
+                dismiss()
+            }
+            return convertView
+        }else {
+            return null
         }
+
 
     }
+    override fun onStart() {
+        super.onStart()
 
-    fun interface OnPickerListener : Parcelable, Serializable {
-
-        fun onViewImg(imageUri: String, opt: String)
-
-        override fun describeContents(): Int = 0
-
-        override fun writeToParcel(dest: Parcel, flags: Int) {}
-
-        companion object CREATOR : Parcelable.Creator<OnPickerListener> {
-
-            override fun createFromParcel(source: Parcel
-            ): OnPickerListener {
-                return OnPickerListener { _, _ -> }
-            }
-
-            override fun newArray(size: Int): Array<OnPickerListener?> {
-                return arrayOfNulls(size)
-            }
-        }
     }
 }
